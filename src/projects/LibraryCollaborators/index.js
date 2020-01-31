@@ -50,6 +50,14 @@ export default class LibraryCollaborators extends Component {
               });
             }, 1000);
           }}
+          revokeAccess={id => {
+            setTimeout(() => {
+              delete permissions[id];
+              this.setState({
+                permissions: permissions
+              });
+            }, 1000);
+          }}
         />
       </section>
     );

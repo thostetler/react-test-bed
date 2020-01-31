@@ -15,6 +15,8 @@ export default class Dashboard extends Component {
 
   onRevokeAccess(id) {
     console.log("revoking", id);
+    this.setState({ pendingPermissionChange: true });
+    this.props.revokeAccess(id);
   }
 
   onChangePermission(id, change) {
@@ -36,13 +38,19 @@ export default class Dashboard extends Component {
             Collaborator
           </Button>
         </div>
-        <div className="row">
-          <PermissionsList
-            permissions={this.props.permissions}
-            onRevokeAccess={this.onRevokeAccess}
-            onChangePermission={this.onChangePermission}
-          />
-        </div>
+        {Object.keys(this.props.permissions).length ? (
+          <div className="row">
+            <PermissionsList
+              permissions={this.props.permissions}
+              onRevokeAccess={this.onRevokeAccess}
+              onChangePermission={this.onChangePermission}
+            />
+          </div>
+        ) : (
+          <div className="row text-center">
+            You have no collaborators, yet. Please add one above
+          </div>
+        )}
         <div className="row text-center">
           {this.state.pendingPermissionChange && (
             <Alert bsStyle="info">
