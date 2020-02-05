@@ -17,7 +17,9 @@ export default class PermissionList extends React.Component {
           <tr>
             <th>Email</th>
             <th id="table-title-role">Role</th>
-            <th></th>
+            <th>
+              <span className="sr-only">Revoke Access </span>
+            </th>
           </tr>
         </thead>
         <tbody>

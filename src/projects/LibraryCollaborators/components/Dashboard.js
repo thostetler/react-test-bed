@@ -43,6 +43,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div className="row">
+        <h3 className="sr-only">Add Collaborators</h3>
         <div className="row">
           <Button
             bsSize="lg"

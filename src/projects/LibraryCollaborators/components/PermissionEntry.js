@@ -85,7 +85,6 @@ export default class PermissionList extends Component {
           <ManageButton
             permission={this.state.permission}
             onChange={this.onManagePermissions}
-            aria-labelledby="table-title-role"
           />
         </td>
         <td style={{ display: "grid", justifyContent: "end" }}>
@@ -94,7 +93,8 @@ export default class PermissionList extends Component {
             bsSize="sm"
             onClick={this.openConfirmRevocationModal}
           >
-            Revoke Access
+            Revoke Access{" "}
+            <span className="sr-only">for {this.state.email}</span>
           </Button>
         </td>
         <ConfirmModal
