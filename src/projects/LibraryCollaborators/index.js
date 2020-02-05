@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Dashboard from "./components/Dashboard";
 import { Permissions } from "./constants";
+import { uniqueId } from "lodash";
 
 const permissions = {
   11: {
@@ -36,14 +37,14 @@ export default class LibraryCollaborators extends Component {
     return (
       <section className="container">
         <Dashboard
-          permissions={permissions}
-          permissionsChange={(id, change) => {
+          permissions={this.state.permissions}
+          changePermission={(id, change) => {
             setTimeout(() => {
               this.setState({
                 permissions: {
-                  ...permissions,
+                  ...this.state.permissions,
                   [id]: {
-                    ...permissions[id],
+                    ...this.state.permissions[id],
                     permission: change
                   }
                 }
@@ -52,9 +53,24 @@ export default class LibraryCollaborators extends Component {
           }}
           revokeAccess={id => {
             setTimeout(() => {
-              delete permissions[id];
+              delete this.state.permissions[id];
               this.setState({
                 permissions: permissions
+              });
+            }, 1000);
+          }}
+          addCollaborator={({ email, permission }) => {
+            setTimeout(() => {
+              const id = parseInt(uniqueId());
+              this.setState({
+                permissions: {
+                  ...this.state.permissions,
+                  [id]: {
+                    id: id,
+                    email,
+                    permission
+                  }
+                }
               });
             }, 1000);
           }}

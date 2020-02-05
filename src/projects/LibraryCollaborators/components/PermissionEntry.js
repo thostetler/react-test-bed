@@ -1,37 +1,8 @@
+import ManageButton from "./ManageButton";
 import React, { Component } from "react";
-import { Button, DropdownButton, MenuItem, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { Permissions } from "../constants";
-
-const ManageButton = ({ permission, onChange }) => {
-  return (
-    <DropdownButton
-      bsStyle="default"
-      bsSize="sm"
-      title={permission.label}
-      key={permission.id}
-      id={`manage-permission-${permission.id}`}
-    >
-      {Object.keys(Permissions).map(key => {
-        const item = Permissions[key];
-        if (permission !== item) {
-          return (
-            <MenuItem
-              key={item.id}
-              eventKey={item.id}
-              onClick={() => onChange(item)}
-            >
-              {item.label}
-            </MenuItem>
-          );
-        }
-        return null;
-      })}
-      {/* <MenuItem eventKey="2">Read Only</MenuItem>
-      <MenuItem eventKey="3">Write Only</MenuItem>
-      <MenuItem eventKey="4">Admin</MenuItem> */}
-    </DropdownButton>
-  );
-};
+import PropTypes from "prop-types";
 
 const ConfirmModal = ({ show, onHide, onOk, children }) => {
   return (
@@ -105,13 +76,16 @@ export default class PermissionList extends Component {
     return (
       <tr>
         <td>
-          <i className="fa fa-fw fa-user-circle" aria-hidden="true" />{" "}
-          {this.state.email}
+          <span>
+            <i className="fa fa-fw fa-user-circle" aria-hidden="true" />{" "}
+            {this.state.email}
+          </span>
         </td>
         <td>
           <ManageButton
             permission={this.state.permission}
             onChange={this.onManagePermissions}
+            aria-labelledby="table-title-role"
           />
         </td>
         <td style={{ display: "grid", justifyContent: "end" }}>
@@ -138,3 +112,17 @@ export default class PermissionList extends Component {
     );
   }
 }
+PermissionList.defaultProps = {
+  data: null,
+  onRevokeAccess: () => {},
+  onChangePermission: () => {},
+  pendingPermissionChange: false,
+  isNew: false
+};
+PermissionList.propTypes = {
+  data: PropTypes.object.isRequired,
+  onRevokeAccess: PropTypes.func,
+  onChangePermission: PropTypes.func,
+  pendingPermissionChange: PropTypes.bool,
+  isNew: PropTypes.bool
+};

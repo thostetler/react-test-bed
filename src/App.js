@@ -1,5 +1,5 @@
 import React from "react";
-import { LibraryCollaborators } from "./projects";
+import { LibraryCollaborators, MyADSFreeform, AddToLibrary } from "./projects";
 
 const Mini = ({ component }) => {
   return (
@@ -14,6 +14,8 @@ function App() {
     <div>
       {/* <Mini component={<Example />} /> */}
       <Mini component={<LibraryCollaborators />} />
+      {/* <Mini component={<MyADSFreeform />} />
+      <Mini component={<AddToLibrary />} /> */}
     </div>
   );
 }
